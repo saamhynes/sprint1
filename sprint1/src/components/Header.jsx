@@ -1,20 +1,12 @@
-// rfce to create this esaily
-function Header({ title, body }) {
+import React from "react";
+
+const Header = () => {
   return (
     <>
-      <div>
-        <h1>{title}</h1>
-        <h2>[We can do this]</h2>
-        <p>Just figuring this out.</p>
-        <p>{body}</p>
-      </div>
+      <h1>Hangman</h1>
+      <p>Find the hidden word - Enter a letter</p>
     </>
   );
-}
-// Default Props
-Header.defaultsprops = {
-  title: "Default title",
-  body: "Default text body",
 };
 
 export default Header;
