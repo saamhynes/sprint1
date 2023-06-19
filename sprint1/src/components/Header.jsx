@@ -4,7 +4,7 @@ function Header({ title, body }) {
     <>
       <div>
         <h1>{title}</h1>
-        <h2>[Header Section]</h2>
+        <h2>[We can do this]</h2>
         <p>Just figuring this out.</p>
         <p>{body}</p>
       </div>
