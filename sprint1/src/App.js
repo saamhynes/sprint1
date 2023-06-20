@@ -9,9 +9,42 @@ import { showNotification as show } from "./helpers/Helpers";
 import Notification from "./components/Notification";
 
 const words = {
-  easy: ["application", "programming", "interface", "wizard"],
-  medium: ["react", "javascript", "component", "development"],
-  hard: ["openai", "machinelearning", "neuralnetwork", "algorithm"],
+  easy: [
+    "apple",
+    "banana",
+    "carrot",
+    "dog",
+    "elephant",
+    "flower",
+    "guitar",
+    "house",
+    "island",
+    "jungle",
+  ],
+  medium: [
+    "computer",
+    "program",
+    "keyboard",
+    "monitor",
+    "internet",
+    "database",
+    "website",
+    "framework",
+    "library",
+    "algorithm",
+  ],
+  hard: [
+    "xylophone",
+    "pneumonia",
+    "rhythm",
+    "juxtaposition",
+    "mnemonic",
+    "chiaroscuro",
+    "schizophrenia",
+    "accommodate",
+    "czar",
+    "quizzical",
+  ],
 };
 
 function App() {
@@ -87,6 +120,7 @@ function App() {
         {difficultySelected ? null : (
           <div>
             <h2>&nbsp; Select Difficulty:</h2>
+            &nbsp;
             {difficultyLevels.map((level) => (
               <button
                 key={level.value}
