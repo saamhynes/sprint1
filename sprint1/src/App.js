@@ -8,61 +8,24 @@ import PopUp from "./components/PopUp";
 import { showNotification as show } from "./helpers/Helpers";
 import Notification from "./components/Notification";
 
-// const words = ["application", "programming", "interface", "wizard"];
-
-// let selectedWord = words[Math.floor(Math.random() * words.length)];
+const words = {
+  easy: ["application", "programming", "interface", "wizard"],
+  medium: ["react", "javascript", "component", "development"],
+  hard: ["openai", "machinelearning", "neuralnetwork", "algorithm"],
+};
 
 function App() {
   const [playable, setPlayable] = useState(true);
   const [correctLetters, setCorrectLetters] = useState([]);
   const [wrongLetters, setWrongLetters] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
-  const [selectedWord, setSelectedWord] = useState("");
+  const [difficulty, setDifficulty] = useState("easy");
+  const [selectedWord, setSelectedWord] = useState(
+    words[difficulty][Math.floor(Math.random() * words[difficulty].length)]
+  );
+  const [difficultySelected, setDifficultySelected] = useState(false);
 
   useEffect(() => {
-    const fetchWords = async () => {
-      try {
-        const response = await fetch("/words.txt");
-        const wordsText = await response.text();
-        const wordsArray = wordsText.split("\n");
-        const easyWords = wordsArray.filter(
-          (word) => word.length >= 3 && word.length,
-          +5
-        );
-        const mediumWords = wordsArray.filter(
-          (word) => word.length >= 6 && word.length,
-          +8
-        );
-        const hardWords = wordsArray.filter((word) => word.length >= 9);
-
-        let selectedDifficultyWords;
-        const difficulty = prompt(
-          "Select Difficulty: (easy, medium, hard)"
-        ).toLowerCase();
-
-        if (difficulty === "easy") {
-          selectedDifficultyWords = easyWords;
-        } else if (difficulty === "medium") {
-          selectedDifficultyWords = mediumWords;
-        } else if (difficulty === "hard") {
-          selectedDifficultyWords = hardWords;
-        } else {
-          alert("Invalid difficulty. Defaulting to easy.");
-          selectedDifficultyWords = easyWords;
-        }
-
-        const randomIndex = Math.floor(
-          Math.random() * selectedDifficultyWords.length
-        );
-        const selectedWord = selectedDifficultyWords[randomIndex];
-        setSelectedWord(selectedWord);
-      } catch (error) {
-        console.error("Error fetching words:", error);
-      }
-    };
-
-    fetchWords();
-
     const handleKeydown = (event) => {
       const { key, keyCode } = event;
       if (playable && keyCode >= 65 && keyCode <= 90) {
@@ -83,28 +46,65 @@ function App() {
         }
       }
     };
+
     window.addEventListener("keydown", handleKeydown);
     return () => window.removeEventListener("keydown", handleKeydown);
-  }, [correctLetters, wrongLetters, playable]);
+  }, [correctLetters, wrongLetters, playable, selectedWord]);
+
+  const handleDifficultySelect = (selectedDifficulty) => {
+    setDifficulty(selectedDifficulty);
+    setSelectedWord(
+      words[selectedDifficulty][
+        Math.floor(Math.random() * words[selectedDifficulty].length)
+      ]
+    );
+    setDifficultySelected(true);
+    setPlayable(true);
+    setCorrectLetters([]);
+    setWrongLetters([]);
+  };
+
+  const difficultyLevels = [
+    { label: "Easy", value: "easy" },
+    { label: "Medium", value: "medium" },
+    { label: "Hard", value: "hard" },
+  ];
 
   function playAgain() {
     setPlayable(true);
-
-    // empty arrays
     setCorrectLetters([]);
     setWrongLetters([]);
-
-    const random = Math.floor(Math.random() * words.length);
-    selectedWord = words[random];
+    setSelectedWord(
+      words[difficulty][Math.floor(Math.random() * words[difficulty].length)]
+    );
+    setDifficultySelected(false);
   }
 
   return (
     <>
       <Header />
-      <div className="game-conatiner">
-        <Figure wrongLetters={wrongLetters} />
-        <Word selectedWord={selectedWord} correctLetters={correctLetters} />
-        <WrongLetters wrongLetters={wrongLetters} />
+      <div className="game-container">
+        {difficultySelected ? null : (
+          <div>
+            <h2>&nbsp; Select Difficulty:</h2>
+            {difficultyLevels.map((level) => (
+              <button
+                key={level.value}
+                onClick={() => handleDifficultySelect(level.value)}
+                className={
+                  (level.value === difficulty ? "selected" : "", "btn")
+                }
+              >
+                {level.label}
+              </button>
+            ))}
+          </div>
+        )}
+        <div className="word-section">
+          <Figure wrongLetters={wrongLetters} />
+          <WrongLetters wrongLetters={wrongLetters} />
+          <Word selectedWord={selectedWord} correctLetters={correctLetters} />
+        </div>
       </div>
       <PopUp
         correctLetters={correctLetters}
