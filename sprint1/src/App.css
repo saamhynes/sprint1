@@ -3,8 +3,8 @@
 }
 
 body {
-  background-color: #131507;
-  color: #ffffff;
+  background-image: url("./images/BG.png");
+  color: black;
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
   flex-direction: column;
@@ -14,8 +14,9 @@ body {
   overflow: hidden;
 }
 
-h1 {
-  margin: 20px 0 0;
+h1,
+p {
+  align-items: center;
 }
 
 .game-container {
@@ -28,7 +29,7 @@ h1 {
 
 .figure-container {
   fill: transparent;
-  stroke: #a51212;
+  stroke: black;
   stroke-width: 4px;
   stroke-linecap: round;
 }
@@ -51,6 +52,7 @@ h1 {
 }
 
 .wrong-letters-container span {
+  height: 40px;
   font-size: 24px;
 }
 
@@ -58,13 +60,13 @@ h1 {
   display: flex;
   position: sticky;
   bottom: 10px;
-  transform: translateX(-25%);
+  /* transform: translateX(-25%); */
   justify-content: center;
   align-items: center;
 }
 
 .letter {
-  border-bottom: 3px solid #2980b9;
+  border-bottom: 3px solid black;
   display: inline-flex;
   font-size: 30px;
   align-items: center;
@@ -88,7 +90,8 @@ h1 {
 }
 
 .popup {
-  background: #2980b9;
+  background: #000000;
+  color: white;
   border-radius: 5px;
   box-shadow: 0 15px 10px 3px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -98,7 +101,7 @@ h1 {
 .popup button {
   cursor: pointer;
   background-color: #fff;
-  color: #2980b9;
+  color: #020202;
   border: 0;
   margin-top: 20px;
   padding: 12px 20px;
@@ -109,8 +112,8 @@ h1 {
   transform: scale(0.98);
 }
 
-.popup button:focus {
-  background: #2980b9;
+.popup button:hover {
+  background: #6d6868;
   border-radius: 5px;
   box-shadow: 0 15px 10px 3px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -134,11 +137,19 @@ h1 {
   transform: translateY(-50px);
 }
 
+.selfDiff {
+  align-items: center;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .btn {
-  background-color: #2980b9;
+  background-color: #6d6868;
+  color: rgb(0, 0, 0);
   width: 80px;
   height: 40px;
   font-size: 16px;
-  font-weight: 800;
-  border-radius: 8px;
+  margin: 5px;
+  border-radius: 5px;
+  justify-content: flex-start;
 }

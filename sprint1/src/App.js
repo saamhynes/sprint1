@@ -119,7 +119,7 @@ function App() {
       <div className="game-container">
         {difficultySelected ? null : (
           <div>
-            <h2>&nbsp; Select Difficulty:</h2>
+            <h2>Select Difficulty:</h2>
             &nbsp;
             {difficultyLevels.map((level) => (
               <button
